@@ -232,11 +232,9 @@ float QLearning::EvaluateMaxNode(int actionType, QLearning* pQ, CState* pS)
 
 void QLearning::updateQValue(int actionType, CState* pState, CAction* pAction, float reward, CState* pNextState, CAction* pNextAction, bool isfinished, QLearning* pChild)
 {
-
 	this->EvaluateMaxNode(actionType,this,pNextState);
 
 	UpdateCompleteFunction(actionType,pState,pAction,pNextState,pNextAction,pChild);
-
 }
 
 
@@ -449,7 +447,7 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 		nextv = getVValue(pState);
 	}
 	
-	float v = pqf->getQValue(preState);
+	//float v = pqf->getQValue(preState);
 	
 	int dur = pChild->pEnvModel->durationCount;
 	for(int i=0;i<pChild->pEnvModel->seq.size();i++)
@@ -459,8 +457,16 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 		{
 			dur = dur - pChild->pEnvModel->seqDur[i-1];
 		}
-		float newc = (1-beta)*pqf->getQValue(ps) + beta*pow(gamma,dur)*nextv;
-		pqf->setQValue(ps,newc);
+		//different level same state pointer differ, so must find coorsponding state in current level
+		CState* mapState = findStateinList(ps);
+		if (NULL == mapState)
+		{
+			mapState = this->pEnvModel->MemyCopyState(pChild->pEnvModel->seq[i]);
+			this->StateList.push_back(mapState);
+		}
+		float cval = pqf->getQValue(mapState);
+		float newc = (1-beta)*cval + beta*pow(gamma,dur)*nextv;
+		pqf->setQValue(mapState,newc);
 	}
 }
 
@@ -502,14 +508,14 @@ bool QLearning::terminatedTask(CState* pState)
 			finished = true;
 		}
 	}
-	else if(this->LearnerName=="ExploreQLearner")
-	{
-		StateGeneralBevSel* pS = dynamic_cast<StateGeneralBevSel*>(pState);
-		if(pS->GetDisToHaven()==DisLevel::Inside || pS->GetHealthlevel()==HealthLevel::NonHl 
-			|| pS->GetDisToEnemy()<DisLevel::None|| pS->GetDisToHaven()<DisLevel::None)
-		{
-			finished = true;
-		}
-	}
+	//else if(this->LearnerName=="ExploreQLearner")
+	//{
+	//	StateGeneralBevSel* pS = dynamic_cast<StateGeneralBevSel*>(pState);
+	//	if(pS->GetDisToHaven()==DisLevel::Inside || pS->GetHealthlevel()==HealthLevel::NonHl 
+	//		|| pS->GetDisToEnemy()<DisLevel::None|| pS->GetDisToHaven()<DisLevel::None)
+	//	{
+	//		finished = true;
+	//	}
+	//}
 	return finished;
 }

@@ -1,0 +1,132 @@
+﻿生成启动时间为 2017/8/3 17:13:11。
+     1>项目“C:\Users\zq\Documents\GitHub\PredatorPrey-MAXQ-BT\Steering.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“.\Release\PatrolPreyGame.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ICommon\ /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0600 /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Release\\" /Fd".\Release\vc100.pdb" /FR".\Release\\" /Gd /TP /analyze- /errorReport:prompt AI\RL\QLearning.cpp Prey.cpp
+         QLearning.cpp
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\State.h(31): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(66): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(68): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(70): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(81): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(132): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(134): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(136): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(146): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(196): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(252): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(256): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(258): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(260): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(262): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(264): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(35): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“HealthLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(40): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(62): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(68): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(74): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(38): warning C4018: “<”: 有符号/无符号不匹配
+     1>AI\RL\QLearning.cpp(202): warning C4018: “<”: 有符号/无符号不匹配
+     1>AI\RL\QLearning.cpp(405): warning C4018: “<”: 有符号/无符号不匹配
+     1>AI\RL\QLearning.cpp(434): warning C4018: “>=”: 有符号/无符号不匹配
+     1>AI\RL\QLearning.cpp(453): warning C4018: “<”: 有符号/无符号不匹配
+     1>AI\RL\QLearning.cpp(487): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(487): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“HealthLevel”
+     1>AI\RL\QLearning.cpp(488): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(488): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(496): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(497): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“HealthLevel”
+     1>AI\RL\QLearning.cpp(497): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(497): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(505): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(506): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“HealthLevel”
+     1>AI\RL\QLearning.cpp(506): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>AI\RL\QLearning.cpp(506): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+         Prey.cpp
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\AI/RL/State.h(31): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\Judger.h(216): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(243): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(280): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(307): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(328): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(350): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\common\bt\BevTreeBasic.h(371): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(66): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(68): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(70): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(81): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(132): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(134): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(136): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(146): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(196): warning C4172: 返回局部变量或临时变量的地址
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(252): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(256): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(258): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(260): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(262): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\../../StateBevLearning.h(264): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(35): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“HealthLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(40): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(62): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(68): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\rl\Evaluator.h(74): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“DisLevel”
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(68): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(74): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(80): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(93): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(100): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\ai\bt\../../ModelBevLearning.h(158): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zq\documents\github\predatorprey-maxq-bt\AI/BT/BevTreeLocal.h(619): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+     1>Prey.cpp(137): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>Prey.cpp(409): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>Prey.cpp(423): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>Prey.cpp(442): warning C4018: “<”: 有符号/无符号不匹配
+     1>Prey.cpp(451): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>Prey.cpp(455): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+     1>Prey.cpp(469): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“CoreNodeType”
+         正在生成代码...
+       ResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\PatrolPreyGame.exe" /INCREMENTAL:NO /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Release\PatrolPreyGame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Users\zq\Documents\GitHub\PredatorPrey-MAXQ-BT\Release\PatrolPreyGame.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\PatrolPreyGame.lib" /MACHINE:X86 .\Release\Script1.res
+         .\Release\Agent.obj
+         .\Release\PredatorOwnedStates.obj
+         .\Release\CAbstractionAction.obj
+         .\Release\CPrimitiveAction.obj
+         .\Release\QFunction.obj
+         .\Release\QLearning.obj
+         .\Release\QLearningDataIO.obj
+         .\Release\Vector2d.obj
+         .\Release\BevTreeBasic.obj
+         .\Release\DebugConsole.obj
+         .\Release\EntityManager.obj
+         .\Release\Cgdi.obj
+         .\Release\iniFileLoaderBase.obj
+         .\Release\WindowUtils.obj
+         .\Release\PrecisionTimer.obj
+         .\Release\GameMap.obj
+         .\Release\GameWorld.obj
+         .\Release\main.obj
+         .\Release\Predator.obj
+         .\Release\Prey.obj
+         .\Release\SensorMemory.obj
+         .\Release\SteeringBehaviors.obj
+         .\Release\Obstacle.obj
+         .\Release\ParamLoader.obj
+         .\Release\Path.obj
+            正在创建库 .\Release\PatrolPreyGame.lib 和对象 .\Release\PatrolPreyGame.exp
+         Steering.vcxproj -> C:\Users\zq\Documents\GitHub\PredatorPrey-MAXQ-BT\.\Release\PatrolPreyGame.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Release\PatrolPreyGame.exe;#1" /manifest .\Release\PatrolPreyGame.exe.intermediate.manifest
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\bscmake.exe /nologo /o".\Release\Steering.bsc" .\Release\Agent.sbr .\Release\PredatorOwnedStates.sbr .\Release\CAbstractionAction.sbr .\Release\CPrimitiveAction.sbr .\Release\QFunction.sbr .\Release\QLearning.sbr .\Release\QLearningDataIO.sbr .\Release\Vector2d.sbr .\Release\BevTreeBasic.sbr .\Release\DebugConsole.sbr .\Release\EntityManager.sbr .\Release\Cgdi.sbr .\Release\iniFileLoaderBase.sbr .\Release\WindowUtils.sbr .\Release\PrecisionTimer.sbr .\Release\GameMap.sbr .\Release\GameWorld.sbr .\Release\main.sbr .\Release\Predator.sbr .\Release\Prey.sbr .\Release\SensorMemory.sbr .\Release\SteeringBehaviors.sbr .\Release\Obstacle.sbr .\Release\ParamLoader.sbr .\Release\Path.sbr
+       FinalizeBuildStatus:
+         正在删除文件“.\Release\PatrolPreyGame.unsuccessfulbuild”。
+         正在对“.\Release\PatrolPreyGame.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\Users\zq\Documents\GitHub\PredatorPrey-MAXQ-BT\Steering.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:09.40

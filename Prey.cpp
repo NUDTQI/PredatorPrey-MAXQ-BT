@@ -252,8 +252,8 @@ void Prey::CreateBTforAgent(const char* a_zXMLFile)
 		m_pGraze = &BevNodeFactory::oCreateSequenceNode(m_pIdle,"Graze");   // root-->Graze
 			m_pForage = &BevNodeFactory::oCreateTeminalNode<NOD_Forage>(m_pGraze,"Forage");
 			m_pEat = &BevNodeFactory::oCreateTeminalNode<NOD_Eat>(m_pGraze,"Eat");
-		//m_pExplore = &BevNodeFactory::oCreatePrioritySelectorNode(m_pIdle,"Explore");   // root-->Explore
-		m_pExplore = GenerateLearningNode(m_pIdle,"Explore");
+		m_pExplore = &BevNodeFactory::oCreatePrioritySelectorNode(m_pIdle,"Explore");   // root-->Explore
+		//m_pExplore = GenerateLearningNode(m_pIdle,"Explore");
 			m_pFlock = &BevNodeFactory::oCreateTeminalNode<NOD_Flock>(m_pExplore,"Flock");
 			m_pWander = &BevNodeFactory::oCreateTeminalNode<NOD_Wander>(m_pExplore,"Wander");
 
@@ -339,7 +339,7 @@ void Prey::BindLearnerForNode( BevNode* pLearningNode )
 	dynamic_cast<BevNodeLearningSelector*>(m_pAttack)->setMyQlearner(GetWorld()->m_pAttackQLearner);
 	dynamic_cast<BevNodeLearningSelector*>(m_pIdle)->setMyQlearner(GetWorld()->m_pIdleQLearner);
 	
-	dynamic_cast<BevNodeLearningSelector*>(m_pExplore)->setMyQlearner(GetWorld()->m_pExploreQLearner);
+	//dynamic_cast<BevNodeLearningSelector*>(m_pExplore)->setMyQlearner(GetWorld()->m_pExploreQLearner);
 
 	pRootEnvModel = new ModelSelGeneralBevLearning(this,pEvaluator);
 	pRetreatEnvModel = new ModelSelGeneralBevLearning(this,pEvaluator);
@@ -395,7 +395,7 @@ void Prey::ExecuteLearning()
 	//propogate to root
 	while(p && p->GetParentNode())
 	{
-		//child node finished, one step intra learning  
+		//child node finished, all state updating  
 		if(p->myStatus)
 		{
 			QLearning* pQ = NULL;
@@ -410,6 +410,10 @@ void Prey::ExecuteLearning()
 			{
 				pQ->pEnvModel->durationCount = pQ->pEnvModel->durationCount+1;
 				pQ->AccuRewardsOption(true,this,pQ->pEnvModel->durationCount);
+
+				//any action execution reward -1
+				pQ->pEnvModel->rewardFeedback = pQ->pEnvModel->rewardFeedback - 1;
+
 				pQ->UpdateVFunction(0,pQ->pEnvModel->preState,pQ->pEnvModel->rewardFeedback);
 				rd = pQ->pEnvModel->rewardFeedback;
 				//pQ->pEnvModel->rewardFeedback = 0;
@@ -432,7 +436,6 @@ void Prey::ExecuteLearning()
 				assert(pQParent);
 				
 				pQParent->AccuRewardsOption(false,this,pQ->pEnvModel->durationCount);
-				pQParent->pEnvModel->durationCount = pQParent->pEnvModel->durationCount + pQParent->pEnvModel->preAction->getDuration();
 				
 				if(pQParent->LearnerName != "RootLearner")//root node never be recalled by others, to save space no store
 				{
@@ -445,7 +448,7 @@ void Prey::ExecuteLearning()
 
 				//
 				{
-					if(p->GetParentNode()->GetNodeType()==CoreNodeType::k_NODE_SequenceNode)// || pQParent->LearnerName=="ExploreQLearner")
+					if(p->GetParentNode()->GetNodeType()==CoreNodeType::k_NODE_SequenceNode || pQParent->LearnerName=="ExploreQLearner")
 					{
 						pQParent->updateQValue(2,pQParent->pEnvModel->preState,pQParent->pEnvModel->preAction,pQParent->pEnvModel->rewardFeedback,pQParent->pEnvModel->pState,NULL,p->myStatus,pQ);
 					}
@@ -454,6 +457,8 @@ void Prey::ExecuteLearning()
 						pQParent->updateQValue(1,pQParent->pEnvModel->preState,pQParent->pEnvModel->preAction,pQParent->pEnvModel->rewardFeedback,pQParent->pEnvModel->pState,NULL,p->myStatus,pQ);
 					}
 				}
+				
+				pQParent->pEnvModel->durationCount = pQParent->pEnvModel->durationCount + pQParent->pEnvModel->preAction->getDuration();
 			}
 
 			p->m_bFire = false;

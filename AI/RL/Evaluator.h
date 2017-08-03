@@ -34,7 +34,7 @@ public:
 		float reward = 0.0f;
 		if (HealthLevel::NonHl == pS->GetHealthlevel())
 		{
-			reward = reward - 200;
+			reward = reward - 50;
 		}
 
 		if (DisLevel::Inside == pS->GetDisToHaven())
@@ -42,11 +42,11 @@ public:
 			reward = reward + 200;
 		}
 
-		if (m_pOwner->m_CurEnemy && m_pOwner->m_CurEnemy->isDead())
-		{
-			reward = reward + 2;
-			m_pOwner->m_CurEnemy = NULL;
-		}
+		//if (m_pOwner->m_CurEnemy && m_pOwner->m_CurEnemy->isDead())
+		//{
+		//	reward = reward + 2;
+		//	m_pOwner->m_CurEnemy = NULL;
+		//}
 		
 		//if (preS->GetHealthlevel() < pS->GetHealthlevel())
 		//{
@@ -59,22 +59,22 @@ public:
 		//}
 
 		////没有Haven，选择到达Haven惩罚
-		//if (DisLevel::None==pS->GetDisToHaven() && m_pOwner->curPrimaryAct=="SeekSafety")
-		//{
-		//	reward = reward - 1;
-		//}
+		if (DisLevel::None==preS->GetDisToHaven() && m_pOwner->curPrimaryAct=="SeekSafety")
+		{
+			reward = reward - 1;
+		}
 
 		////没有敌人，选择进攻惩罚
-		//if (DisLevel::None==pS->GetDisToEnemy() && (m_pOwner->curPrimaryAct=="Charge"||m_pOwner->curPrimaryAct=="Assist"))
-		//{
-		//	reward = reward - 1;
-		//}
+		if (DisLevel::None==preS->GetDisToEnemy() && (m_pOwner->curPrimaryAct=="Charge"||m_pOwner->curPrimaryAct=="Assist"))
+		{
+			reward = reward - 1;
+		}
 
 		////没有Food，选择Forge惩罚
-		//if (DisLevel::None==pS->GetDisToFood() && m_pOwner->curPrimaryAct=="Forage")
-		//{
-		//	reward = reward - 1;
-		//}
+		if (DisLevel::None==preS->GetDisToFood() && m_pOwner->curPrimaryAct=="Forage")
+		{
+			reward = reward - 1;
+		}
 		//
 		//if (HealthLevel::LowHl >= pS->GetHealthlevel() && DisLevel::Inside==pS->GetDisToFood() && m_pOwner->curPrimaryAct=="Eat")
 		//{

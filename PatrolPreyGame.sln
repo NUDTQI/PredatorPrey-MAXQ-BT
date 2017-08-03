@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PatrolPreyGame", "Steering.vcxproj", "{F8255580-1525-714A-EF13-524F84ADD6A9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PatrolPreyGame", "Steering.vcxproj", "{5790F93D-CFE2-0012-4CD2-E8D09F0DBA0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8255580-1525-714A-EF13-524F84ADD6A9}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F8255580-1525-714A-EF13-524F84ADD6A9}.Debug|Win32.Build.0 = Debug|Win32
-		{F8255580-1525-714A-EF13-524F84ADD6A9}.Release|Win32.ActiveCfg = Release|Win32
-		{F8255580-1525-714A-EF13-524F84ADD6A9}.Release|Win32.Build.0 = Release|Win32
+		{5790F93D-CFE2-0012-4CD2-E8D09F0DBA0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5790F93D-CFE2-0012-4CD2-E8D09F0DBA0C}.Debug|Win32.Build.0 = Debug|Win32
+		{5790F93D-CFE2-0012-4CD2-E8D09F0DBA0C}.Release|Win32.ActiveCfg = Release|Win32
+		{5790F93D-CFE2-0012-4CD2-E8D09F0DBA0C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

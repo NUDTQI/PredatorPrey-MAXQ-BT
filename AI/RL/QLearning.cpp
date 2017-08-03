@@ -449,14 +449,13 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 	
 	//float v = pqf->getQValue(preState);
 	
-	int dur = pChild->pEnvModel->durationCount;
-	for(int i=0;i<pChild->pEnvModel->seq.size();i++)
+	//update as ordered most-recent-first will more faster
+	int dur = 0;
+	for(int i=pChild->pEnvModel->seq.size()-1;i>=0;i--)
 	{
 		CState* ps = pChild->pEnvModel->seq[i];
-		if(i-1 >= 0)
-		{
-			dur = dur - pChild->pEnvModel->seqDur[i-1];
-		}
+		dur = dur + pChild->pEnvModel->seqDur[i];
+
 		//different level same state pointer differ, so must find coorsponding state in current level
 		CState* mapState = findStateinList(ps);
 		if (NULL == mapState)

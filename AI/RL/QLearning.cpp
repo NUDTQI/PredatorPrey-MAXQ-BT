@@ -510,11 +510,13 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 	assert(psudoqf);
 
 	//make use of child node's V value to update own complete function
-	float nextv = 0;
+	float nextpsudoc = 0;
+	float nextcval = 0 ;
 	if(actionType==0 || actionType==3)//action, parallel or the last sequence or selector node without learning
 	{
 		pNextAction = NULL;
-		nextv = 0;
+		nextpsudoc = 0;
+		nextcval = 0;
 	}
 	else if(actionType==2)//sequence node or selector node without learning, use next node Q to update otherwise V.
 	{
@@ -522,24 +524,26 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 		if(nextact >= this->ActionList.size())
 		{
 			pNextAction = NULL;
-			nextv = 0;
+			nextpsudoc = 0;
+			nextcval = 0;
 		}
 		else
 		{
 			pNextAction = this->ActionList[nextact];
-			nextv = getQValue(pState,pNextAction,false);
+			nextpsudoc = getQValue(pState,pNextAction,true);
+			nextcval = getQValue(pState,pNextAction,false);
 		}
 	}
 	else if(actionType == 1)
 	{
-		nextv = getVValue(pState);
+		CAction* greedyAct = this->getBestQValueOnState(pState,true);
+		nextpsudoc = getQValue(pState,greedyAct,true);
+		nextcval = getQValue(pState,greedyAct,false);
 	}
 	
 	//float v = pqf->getQValue(preState);
 	float pesudoReward = 0;
 	if(isfinished) pesudoReward = pesudoR;
-
-	CAction* greedyAct = this->getBestQValueOnState(pState,true);
 
 	//update as ordered most-recent-first will more faster
 	int dur = 0;
@@ -558,15 +562,11 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 
 		//two complete function update, get complete function of farther Q learner, in our experiment it is Rootlearner
 		float psudocval = psudoqf->getQValue(mapState);
-		float psudoc = (1-beta)*psudocval + beta*pow(gamma,dur)*(pesudoReward + this->getQValue(pState,greedyAct,true));
+		float psudoc = (1-beta)*psudocval + beta*pow(gamma,dur)*(pesudoReward + nextpsudoc);
 		psudoqf->setQValue(mapState,psudoc);
 
-		QLearning* pChild2 = ChildrenLearners.find(greedyAct->getActionIndex())->second;
-		CState* childState = pChild2->findStateinList(pState);
-		float childV = pChild2->getVValue(childState);
-
 		float cval = pqf->getQValue(mapState);
-		float newc = (1-beta)*cval + beta*pow(gamma,dur)*(this->getCValue(pState,greedyAct,false)+ childV);
+		float newc = (1-beta)*cval + beta*pow(gamma,dur)*nextcval;
 		pqf->setQValue(mapState,newc);
 	}
 }

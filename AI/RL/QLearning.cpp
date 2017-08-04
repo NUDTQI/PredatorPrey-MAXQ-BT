@@ -36,6 +36,20 @@ QLearning::~QLearning(void)
 		qfs = NULL;
 	}
 
+	for (std::map <CAction*, QFunction*>::iterator iter=PsudoQFunctions.begin();iter!=PsudoQFunctions.end();iter++)
+	{
+		QFunction* qfs = iter->second;
+		qfs->qf.clear();
+		qfs = NULL;
+	}
+
+	for (std::map <CAction*, QFunction*>::iterator iter=PsudoCFunctions.begin();iter!=PsudoCFunctions.end();iter++)
+	{
+		QFunction* qfs = iter->second;
+		qfs->qf.clear();
+		qfs = NULL;
+	}
+
 	for (int i=0;i<ActionList.size();i++)
 	{
 		CAction* act = ActionList[i];
@@ -74,10 +88,16 @@ void QLearning::setActionSet( std::vector<CAction*>& ActionSet)
 
 		QFunction* qf = new QFunction();
 		QFunctions.insert(std::make_pair(*it,qf));
+
+		QFunction* psudoqf = new QFunction();
+		PsudoQFunctions.insert(std::make_pair(*it,psudoqf));
 		
 		//generate CFunction
 		QFunction* cf = new QFunction();
 		CFunctions.insert(std::make_pair(*it,cf));
+
+		QFunction* psudocf = new QFunction();
+		PsudoCFunctions.insert(std::make_pair(*it,psudocf));
 	}
 }
 
@@ -107,7 +127,7 @@ CAction* QLearning::chooseAction(Agent* owner,CState* state)
 	}
 	else
 	{
-		CAction* pbestA = getBestQValueOnState(state);
+		CAction* pbestA = getBestQValueOnState(state,true);
 		if (pbestA->getAction() >= 0)
 		{
 			pEnvModel->pAction = pbestA;
@@ -116,63 +136,117 @@ CAction* QLearning::chooseAction(Agent* owner,CState* state)
 	return pEnvModel->pAction;
 }
 
-CAction* QLearning::getBestQValueOnState(CState* state)
+CAction* QLearning::getBestQValueOnState(CState* state, bool isPsudo)
 {
 	double qValue = -1*MaxDouble;
 
 	CAction *pAction = NULL;
 
-	for(std::map <CAction*, QFunction*>::iterator it = QFunctions.begin();it!=QFunctions.end();it++)
+	if(isPsudo)
 	{
-		QFunction* vf = it->second;
-
-		if (vf->getQValue(state) > qValue)
+		for(std::map <CAction*, QFunction*>::iterator it = PsudoQFunctions.begin();it!=PsudoQFunctions.end();it++)
 		{
-			qValue = vf->getQValue(state);
-			pAction = it->first;
+			QFunction* vf = it->second;
+
+			if (vf->getQValue(state) > qValue)
+			{
+				qValue = vf->getQValue(state);
+				pAction = it->first;
+			}
+		}
+	}
+	else
+	{
+		for(std::map <CAction*, QFunction*>::iterator it = QFunctions.begin();it!=QFunctions.end();it++)
+		{
+			QFunction* vf = it->second;
+
+			if (vf->getQValue(state) > qValue)
+			{
+				qValue = vf->getQValue(state);
+				pAction = it->first;
+			}
 		}
 	}
 	
 	return pAction;
 }
 
-float QLearning::getQValue(CState* state, CAction* action,bool isCompletefunction)
+float QLearning::getQValue(CState* state, CAction* action,bool isPsudo)
 {
 	float value = 0.0;
-
-	//adapt to maxq method
-	if(false == isCompletefunction)
+	if(isPsudo)
 	{
-		//assert (QFunctions[action]);
+		assert (PsudoQFunctions[action]);
 
-		value = QFunctions[action]->getQValue(state);
+		value = PsudoQFunctions[action]->getQValue(state);
 	}
 	else
 	{
-		//assert (CFunctions[action]);
+		assert (QFunctions[action]);
 
-		value = CFunctions[action]->getQValue(state);
+		value = QFunctions[action]->getQValue(state);
 	}
 
 	return value;
 }
 
-void QLearning::setQValue(CState* state,CAction* action, float v,bool isCompletefunction)
+void QLearning::setQValue(CState* state,CAction* action, float v,bool isPsudo)
 {
 	float value = 0.0;
 
 	//adapt to maxq method
-	if(false == isCompletefunction)
+	if(isPsudo)
+	{
+		assert (PsudoQFunctions[action]);
+
+		(PsudoQFunctions[action])->setQValue(state, v);
+	}
+	else
+	{
+		assert (QFunctions[action]);
+
+		(QFunctions[action])->setQValue(state, v);
+	}
+}
+
+float QLearning::getCValue(CState* state, CAction* action,bool isPsudo)
+{
+	float value = 0.0;
+
+	//adapt to maxq method
+	if(false == isPsudo)
 	{
 		//assert (QFunctions[action]);
 
-		(QFunctions[action])->setQValue(state, v);
+		value = CFunctions[action]->getQValue(state);
 	}
 	else
 	{
 		//assert (CFunctions[action]);
 
+		value = PsudoCFunctions[action]->getQValue(state);
+	}
+
+	return value;
+}
+
+void QLearning::setCValue(CState* state,CAction* action, float v,bool isPsudo)
+{
+	float value = 0.0;
+
+	//adapt to maxq method
+	if(false == isPsudo)
+	{
+		//assert (CFunctions[action]);
+
 		(CFunctions[action])->setQValue(state, v);
+	}
+	else
+	{
+		//assert (PesudoCFunctions[action]);
+
+		(PsudoCFunctions[action])->setQValue(state, v);
 	}
 }
 
@@ -220,7 +294,11 @@ float QLearning::EvaluateMaxNode(int actionType, QLearning* pQ, CState* pS)
 				}
 				float vr = EvaluateMaxNode((int)pA->getActionType(),pChild,mapState);
 
-				float cvalue = pQ->getQValue(pS,pA,true);
+				float psudocvalue = pQ->getCValue(pS,pA,true);
+
+				pQ->setQValue(pS,pA,vr+psudocvalue,true);
+
+				float cvalue = pQ->getCValue(pS,pA,false);
 
 				pQ->setQValue(pS,pA,vr+cvalue,false);
 			}
@@ -395,7 +473,7 @@ void QLearning::UpdateVFunction(int actiontype, CState* ps, float r)
 	}	
 	else if(1 == actiontype)//selector composite node, get best Q value
 	{
-		setVValue(ps,getQValue(ps, getBestQValueOnState(ps),false));
+		setVValue(ps,getQValue(ps, getBestQValueOnState(ps,false),false));
 	}
 	else if(2 == actiontype)//sequence composite node, get the first child node Q value
 	{
@@ -422,6 +500,14 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 		pqf = it->second;
 	}
 	assert(pqf);
+
+	std::map<CAction*, QFunction*>::iterator it2 = PsudoCFunctions.find(preAction);
+	QFunction* psudoqf = NULL;
+	if(it2!=PsudoCFunctions.end())
+	{
+		psudoqf = it2->second;
+	}
+	assert(psudoqf);
 
 	//make use of child node's V value to update own complete function
 	float nextv = 0;
@@ -453,6 +539,8 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 	float pesudoReward = 0;
 	if(isfinished) pesudoReward = pesudoR;
 
+	CAction* greedyAct = this->getBestQValueOnState(pState,true);
+
 	//update as ordered most-recent-first will more faster
 	int dur = 0;
 	for(int i=pChild->pEnvModel->seq.size()-1;i>=0;i--)
@@ -467,10 +555,18 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 			mapState = this->pEnvModel->MemyCopyState(pChild->pEnvModel->seq[i]);
 			this->StateList.push_back(mapState);
 		}
-		float cval = pqf->getQValue(mapState);
-		//get complete function of farther Q learner, in our experiment it is Rootlearner
 
-		float newc = (1-beta)*cval + beta*pow(gamma,dur)*(nextv+pesudoReward);
+		//two complete function update, get complete function of farther Q learner, in our experiment it is Rootlearner
+		float psudocval = psudoqf->getQValue(mapState);
+		float psudoc = (1-beta)*psudocval + beta*pow(gamma,dur)*(pesudoReward + this->getQValue(pState,greedyAct,true));
+		psudoqf->setQValue(mapState,psudoc);
+
+		QLearning* pChild2 = ChildrenLearners.find(greedyAct->getActionIndex())->second;
+		CState* childState = pChild2->findStateinList(pState);
+		float childV = pChild2->getVValue(childState);
+
+		float cval = pqf->getQValue(mapState);
+		float newc = (1-beta)*cval + beta*pow(gamma,dur)*(this->getCValue(pState,greedyAct,false)+ childV);
 		pqf->setQValue(mapState,newc);
 	}
 }

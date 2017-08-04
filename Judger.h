@@ -21,7 +21,7 @@
 
 enum GameStatus{GameRunning, AllPreysInHaven, AllPreysDead, AllPredatorsDead, TimeOut};
 
-#define m_iMaxRunTimes 5100
+#define m_iMaxRunTimes 1100
 
 class Judger
 {

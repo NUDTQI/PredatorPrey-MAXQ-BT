@@ -808,7 +808,7 @@ void GameWorld::ConstructQLearners()
 void GameWorld::UpdateGLIEPolicy()
 {
 	//learning rate decrease to 0 in limited maxrun;
-	float decay = 0.999;
+	float decay = 0.995;
 	float newbeta = m_pRootQLearner->beta*decay;
 	float newexploration = m_pRootQLearner->exploration*decay;
 

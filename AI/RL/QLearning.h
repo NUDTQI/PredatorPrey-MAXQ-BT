@@ -38,7 +38,8 @@ public:
 
 	std::map<QLearning*,int> r_ChildrenLearners;
 	std::map<int,QLearning*> ChildrenLearners;
-protected:
+	QLearning* pParent;
+public:
 	std::vector<CAction*> ActionList;
 	std::vector<CState*> StateList;
 
@@ -59,7 +60,7 @@ protected:
 public:
 	void updateQValue(int actionType,CState* pState, CAction* pAction, float reward, CState* pNextState, CAction* pNextAction, bool isfinished, QLearning* pChild); 
 	void UpdateVFunction(int actiontype, CState* ps, float r);
-	void UpdateCompleteFunction(int actionType,CState* preState, CAction* preAction,CState* pState, CAction* pNextAction, QLearning* pChild);
+	void UpdateCompleteFunction(int actionType,CState* preState, CAction* preAction,CState* pState, CAction* pNextAction, QLearning* pChild, bool isfinished, float pesudoR);
 
 	void saveQTableToFile(char*);
 	void loadQTableFromFile(char*);

@@ -391,6 +391,9 @@ void Prey::ExecuteLearning()
 		}
 	}
 	p = m_pBevTreeRoot->oGetLastActiveNode();
+
+	QLearning* pRootLearner = NodeQMap.find(this->m_pBevTreeRoot)->second;
+	assert(pRootLearner);
 	
 	//propogate to root
 	while(p && p->GetParentNode())
@@ -454,7 +457,12 @@ void Prey::ExecuteLearning()
 					}
 					else if(p->GetParentNode()->GetNodeType() == CoreNodeType::k_NODE_SelectorNode)
 					{
-						pQParent->updateQValue(1,pQParent->pEnvModel->preState,pQParent->pEnvModel->preAction,pQParent->pEnvModel->rewardFeedback,pQParent->pEnvModel->pState,NULL,p->myStatus,pQ);
+						//option and MAXQ the finished flag different, option check if child is finished, in maxq we propogate if learner self is finished to lead hierarchical optimal  
+						CState* mapState2 = pRootLearner->findStateinList(pQParent->pEnvModel->pState);
+						float pesudoR = 0;
+						if (p->GetParentNode()->myStatus) pesudoR = pRootLearner->getVValue(mapState2);
+						
+						pQParent->updateQValue(1,pQParent->pEnvModel->preState,pQParent->pEnvModel->preAction,pesudoR,pQParent->pEnvModel->pState,NULL,p->GetParentNode()->myStatus,pQ);
 					}
 				}
 				

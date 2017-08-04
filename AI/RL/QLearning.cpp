@@ -17,6 +17,7 @@ QLearning::QLearning(/*Prey* owner, */float gamma_in, float beta_in, float explo
 	
 
 	pioQtable = new QLearningDataIO(&QFunctions,&StateList);
+	pParent = NULL;
 }
 
 QLearning::~QLearning(void)
@@ -53,6 +54,7 @@ QLearning::~QLearning(void)
 	pioQtable = NULL;
 
 	pEnvModel = NULL;
+	pParent = NULL;
 }
 
 void QLearning::setParameters(float newgamma, float newbeta, float newexploration) 
@@ -234,7 +236,7 @@ void QLearning::updateQValue(int actionType, CState* pState, CAction* pAction, f
 {
 	this->EvaluateMaxNode(actionType,this,pNextState);
 
-	UpdateCompleteFunction(actionType,pState,pAction,pNextState,pNextAction,pChild);
+	UpdateCompleteFunction(actionType,pState,pAction,pNextState,pNextAction,pChild,isfinished,reward);
 }
 
 
@@ -411,7 +413,7 @@ void QLearning::UpdateVFunction(int actiontype, CState* ps, float r)
 	
 }
 
-void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction* preAction, CState* pState, CAction* pNextAction, QLearning* pChild)
+void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction* preAction, CState* pState, CAction* pNextAction, QLearning* pChild, bool isfinished, float pesudoR)
 {
 	std::map<CAction*, QFunction*>::iterator it = CFunctions.find(preAction);
 	QFunction* pqf = NULL;
@@ -448,7 +450,9 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 	}
 	
 	//float v = pqf->getQValue(preState);
-	
+	float pesudoReward = 0;
+	if(isfinished) pesudoReward = pesudoR;
+
 	//update as ordered most-recent-first will more faster
 	int dur = 0;
 	for(int i=pChild->pEnvModel->seq.size()-1;i>=0;i--)
@@ -464,7 +468,9 @@ void QLearning::UpdateCompleteFunction(int actionType,CState* preState, CAction*
 			this->StateList.push_back(mapState);
 		}
 		float cval = pqf->getQValue(mapState);
-		float newc = (1-beta)*cval + beta*pow(gamma,dur)*nextv;
+		//get complete function of farther Q learner, in our experiment it is Rootlearner
+
+		float newc = (1-beta)*cval + beta*pow(gamma,dur)*(nextv+pesudoReward);
 		pqf->setQValue(mapState,newc);
 	}
 }

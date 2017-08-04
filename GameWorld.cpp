@@ -788,13 +788,27 @@ void GameWorld::ConstructQLearners()
 	m_pAttackQLearner->ChildrenLearners.insert(std::make_pair(0,m_pChargeQLearner));
 	m_pAttackQLearner->ChildrenLearners.insert(std::make_pair(1,m_pAssistQLearner));
 
+	m_pRootQLearner->pParent = NULL;
+	m_pRetreatQLearner->pParent = m_pRootQLearner;
+	m_pFleeQLearner->pParent = m_pRetreatQLearner;
+	m_pSeekSafetyQLearner->pParent = m_pRetreatQLearner;
+	m_pIdleQLearner->pParent = m_pRootQLearner;
+	m_pGrazeQLearner->pParent = m_pIdleQLearner;
+	m_pForageQLearner->pParent = m_pGrazeQLearner;
+	m_pEatQLearner->pParent = m_pGrazeQLearner;
+	m_pExploreQLearner->pParent = m_pIdleQLearner;
+	m_pFlockQLearner->pParent = m_pExploreQLearner;
+	m_pWanderQLearner->pParent = m_pExploreQLearner;
+	m_pAttackQLearner->pParent = m_pRootQLearner;
+	m_pChargeQLearner->pParent = m_pAttackQLearner;
+	m_pAssistQLearner->pParent = m_pAttackQLearner;
 }
 
 
 void GameWorld::UpdateGLIEPolicy()
 {
 	//learning rate decrease to 0 in limited maxrun;
-	float decay = 0.995;
+	float decay = 0.999;
 	float newbeta = m_pRootQLearner->beta*decay;
 	float newexploration = m_pRootQLearner->exploration*decay;
 

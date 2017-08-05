@@ -461,7 +461,8 @@ void Prey::ExecuteLearning()
 						CState* mapState2 = pRootLearner->findStateinList(pQParent->pEnvModel->pState);
 						float pesudoR = 0;
 						if (p->GetParentNode()->myStatus) pesudoR = pRootLearner->getQValue(mapState2,pRootLearner->getBestQValueOnState(mapState2,true),true);
-						
+						pesudoR = pesudoR + pQParent->pEnvModel->pMyEvaluator->ComputePseudoReward(this,pQParent,pQParent->pEnvModel->pState);
+
 						pQParent->updateQValue(1,pQParent->pEnvModel->preState,pQParent->pEnvModel->preAction,pesudoR,pQParent->pEnvModel->pState,NULL,p->GetParentNode()->myStatus,pQ);
 					}
 				}

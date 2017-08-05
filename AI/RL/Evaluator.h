@@ -15,6 +15,7 @@ public:
 	~Evaluator(){}
 
 	virtual float Evaluate(Prey* pA,CState* preState,CState* ps){return 0;}
+	virtual float ComputePseudoReward(Prey* m_pOwner, QLearning* pQ, CState* ps){return 0;}
 };
 
 class GeneralEvaluator
@@ -44,7 +45,7 @@ public:
 
 		//if (m_pOwner->m_CurEnemy && m_pOwner->m_CurEnemy->isDead())
 		//{
-		//	reward = reward + 2;
+		//	reward = reward + 1;
 		//	m_pOwner->m_CurEnemy = NULL;
 		//}
 		
@@ -116,6 +117,39 @@ public:
 		}*/
 
 		m_pOwner->m_dReward = m_pOwner->m_dReward + reward;
+		return reward;
+	}
+
+	virtual float ComputePseudoReward(Prey* m_pOwner, QLearning* pQ, CState* ps)
+	{
+		StateGeneralBevSel* pS = dynamic_cast<StateGeneralBevSel*>(ps);
+
+		////////////////以下为Root节点空间内定义的伪奖励值函数//////////////////////////////////////////////////////////
+		float reward = 0.0f;
+		if(pQ->terminatedTask(pS))
+		{
+			if(pQ->LearnerName=="RetreatLearner")
+			{
+				if(pS->GetDisToHaven()!=DisLevel::Inside)
+				{
+					reward = -100;
+				}
+			}
+			else if(pQ->LearnerName=="IdleLearner")
+			{
+				if(!(pS->GetDisToHaven()==DisLevel::Inside||pS->GetDisToHaven()<DisLevel::None))
+				{
+					reward = -100;
+				}
+			}
+			else if(pQ->LearnerName=="AttackLearner")
+			{
+				if(pS->GetHealthlevel()==HealthLevel::NonHl)
+				{
+					reward = -100;
+				}
+			}
+		}
 		return reward;
 	}
 };
